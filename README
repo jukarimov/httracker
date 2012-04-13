@@ -1,0 +1,14 @@
+ Tracking utility for hikers
+
+httracker is a jquery powered on top of web server,
+running on maemo with python-location packege installed, ugh :X
+
+== Simple steps:
+
+* Calibrate map
+* Start http server
+* Run gps.py
+* Navigate to httracker/src (using microb)
+* Track yourself now (8-)
+
+Happy hiking ;)

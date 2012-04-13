@@ -1,0 +1,43 @@
+<html>
+ <head>
+ <title>
+  Searching...
+ </title>
+ <script src="jquery.js"></script>
+ <script src="../data/gps.js"></script>
+ <script src="foos.js"></script>
+ <script src="const.js"></script>
+ <script>
+
+var gp1 = {};
+var gp2 = {};
+gps_init();
+var UPDATE_INTERVAL = 5000;
+var Offset = {};
+var DPX = {};
+var BEG = {};
+const_init();
+var proc;
+var CGP;
+function run(){
+	$.get("../data/current.gp", function(data){
+		CGP = data;
+	});
+	N = parseFloat(CGP.split(',')[0]);;
+	E = parseFloat(CGP.split(',')[1]);
+	//alert('current location: ' + N,E);
+	if (isNaN(N) || isNaN(E))
+		alert('Bad data from ../data/current.gp')
+
+	getPX(N,E);
+	document.title = CGP;
+};
+setInterval(run, 5000);
+
+ </script>
+ </head>
+ <body>
+ <div id="grid"></div>
+ <img id="img" src="../data/map.png" />
+ </body>
+</html>

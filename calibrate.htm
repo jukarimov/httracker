@@ -1,0 +1,69 @@
+<html>
+ <script>
+var CAL=[], calc=0;
+var data = '/*********************************************/<br>' +
+		'the script will appear here, when done copy bellow and paste to ../data/gps.js */<br>';
+
+var header = '<br>function gps_init(){<br><br>'
+
+var footer = '<br>};<br>/*------------------------8<--cut-here-->8---------------------*/<br><br>';
+
+function saveMousev(e){
+ 	CAL[calc].px = {x:e.pageX, y:e.pageY};
+	++calc;
+	alert('OK');
+};
+function saveGP(){
+	v = prompt('Enter ' + calc + ' poi`s lat,lon');
+	n = parseFloat(v.split(',')[0]);
+	e = parseFloat(v.split(',')[1]);
+	if (isNaN(n) || isNaN(e))
+		alert('Bad lat/lon!')
+
+	CAL[calc] = {};
+ 	CAL[calc].gp = {lat:n, lon:e};
+	name = prompt('Enter poi name, eg. grarden at grandma..');
+	CAL[calc].name = name;
+	alert('now click on it');
+};
+function init(){ 
+ 	 a = document;
+	 img = a.getElementById('img');
+   	 img.onmouseup = saveMousev;
+ 	 out = a.getElementById('out');
+ 	 out.innerHTML = data;
+};	
+
+function show(){
+	if (calc < 2)
+		alert('at least two pois required');
+
+	data += header;
+
+	for (i=0; i < CAL.length; i++) {
+		data += 'var gp' + i + ' = {<br>';
+		data += 'lon:' + CAL[i].gp.lon + ',<br>';
+		data += 'lat:' + CAL[i].gp.lat + ',<br>';
+		data += 'left:' + CAL[i].px.x + ',<br>';
+		data += 'top:' + CAL[i].px.y + ',<br>';
+		data += 'name:"' + CAL[i].name + '"<br>};<br>';
+	}
+
+	data += footer;
+	out.innerHTML = data;
+};
+
+ </script>
+ <body onload="init();">
+  Calibrating <a href="../data/map.png">map</a>
+  <br>
+  <br>
+  <a href="javascript:saveGP();">Create new POI</a>
+  <br>
+  <br>
+  <a href="javascript:show();">Done!</a>
+  <br>
+  <div id="out"></div>
+  <img id="img" src="../data/map.png"/>
+ </body>
+</html>
